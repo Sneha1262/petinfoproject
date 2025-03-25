@@ -145,6 +145,7 @@
       <ul class="nav-links">
         <!-- Adjust links to match your site structure -->
         <li><a href="index.html">Home</a></li>
+        <!-- This link highlights the 'Pets' page -->
         <li><a href="myapi.html" style="color:#ffce00;">Pets</a></li>
         <li><a href="#">Events</a></li>
         <li><a href="#">Clothes</a></li>
@@ -196,9 +197,6 @@
           const card = document.createElement("div");
           card.classList.add("pet-card");
           
-          // If your API includes fields like image_url, you can add <img> tag here
-          // e.g. <img src="${pet.image_url}" alt="${pet.name}" style="width:100%;height:auto;margin-bottom:10px;" />
-
           card.innerHTML = `
             <h3>${pet.name}</h3>
             <p>Type: ${pet.pet_type}</p>
