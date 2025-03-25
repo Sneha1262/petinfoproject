@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>PetInfoBlog</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Navigation Bar -->
-  <header class="navbar">
+<header class="navbar">
     <div class="nav-left">
       <h1 class="logo">PetInfoBlog</h1>
-      <!-- Hamburger Icon (for mobile) -->
-      <div class="hamburger" id="hamburger">
-        &#9776; <!-- Unicode hamburger menu symbol -->
-      </div>
+      <!-- Hamburger Icon (visible on mobile) -->
+      <div class="hamburger" id="hamburger">&#9776;</div>
     </div>
     <nav id="nav-menu" class="nav-menu">
       <ul class="nav-links">
@@ -28,54 +17,13 @@
       </div>
     </nav>
   </header>
-
-  <!-- Hero / Banner Section -->
-  <section class="hero">
-    <!-- Replace with your own banner image URL or local image -->
-    <img src="banner.jpg" alt="Banner" class="hero-image" />
-    <div class="hero-text">
-      <h2>Welcome to PetInfoBlog!</h2>
-      <p>Your source for pet info, clothing, and exciting events!</p>
-    </div>
-  </section>
-
-  <main>
-    <!-- Pets Section (Your API) -->
-    <section class="pets-section">
-      <h2>🐶 Pet Cards (Your API)</h2>
-      <div class="card-container" id="pet-cards">
-        <!-- Dynamically populated from pet.js -->
-      </div>
-      <button id="load-more-pets" class="primary-btn">Load More Pets</button>
-    </section>
-
-    <!-- Events Section (Classmate's Events API) -->
-    <section class="events-section">
-      <h2>📅 Pet Events Nearby</h2>
-      <div class="card-container" id="event-cards">
-        <!-- Dynamically populated from events.js -->
-      </div>
-      <button id="view-all-events" class="primary-btn">View All Upcoming Events</button>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 PetInfoBlog. All rights reserved.</p>
-  </footer>
-
-  <!-- JavaScript (pet.js, events.js, etc.) -->
-  <script src="pet.js"></script>
-  <script src="events.js"></script>
-
-  <!-- Simple Script to Toggle Navbar on Mobile -->
+  
   <script>
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
-
+  
     hamburger.addEventListener('click', () => {
       navMenu.classList.toggle('active');
     });
   </script>
-</body>
-</html>
+  
