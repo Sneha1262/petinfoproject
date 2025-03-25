@@ -1,16 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>PetInfo Blog 🐾</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>PetInfo Blog</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>🐾 PetInfo Blog</h1>
-    <div id="pets"></div>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-left">
+      <h1>PetInfoBlog</h1>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Pets</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Clothes</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <input type="text" placeholder="Search..." class="search-bar" />
+    </div>
+  </header>
 
-    <button id="loadMoreBtn">Load More Pets</button>
+  <!-- Hero/Banner Section -->
+  <section class="hero">
+    <!-- Replace banner.jpg with your own banner image or an S3 URL -->
+    <img src="banner.jpg" alt="Banner" class="hero-image" />
+    <div class="hero-text">
+      <h2>Welcome to PetInfoBlog!</h2>
+      <p>Your source for pet info, clothing, and exciting events!</p>
+    </div>
+  </section>
 
-    <script src="pet.js"></script>
+  <main>
+    <!-- Pets Section (Your API) -->
+    <section class="pets-section">
+      <h2>🐶 Pet Cards (Your API)</h2>
+      <div id="pet-cards" class="card-container">
+        <!-- Pet cards will be inserted here by your JavaScript (pet.js) -->
+      </div>
+      <button id="load-more-pets">Load More Pets</button>
+    </section>
+
+    <!-- Events Section (Classmate's Events API) -->
+    <section class="events-section">
+      <h2>📅 Pet Events Nearby</h2>
+      <div id="event-cards" class="card-container">
+        <!-- Event cards will be inserted here by your JavaScript (events.js) -->
+      </div>
+      <button id="view-all-events">View All Upcoming Events</button>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 PetInfoBlog. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript Files -->
+  <!-- e.g. pet.js for your Pet API, events.js for your classmate's Events API -->
+  <script src="pet.js"></script>
+  <script src="events.js"></script>
 </body>
 </html>

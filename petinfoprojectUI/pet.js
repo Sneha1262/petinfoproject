@@ -1,25 +1,41 @@
-const apiUrl = "http://35.173.214.218:8000/api/pets/";
+// pet.js
+const petsApiUrl = "http://<YOUR-EC2-ELASTIC-IP>:8000/api/pets/";
 
 async function loadPets() {
-    const response = await fetch(apiUrl);
+  try {
+    const response = await fetch(petsApiUrl);
     const pets = await response.json();
-    const petContainer = document.getElementById("pets");
-    petContainer.innerHTML = "";
+
+    const petCardsContainer = document.getElementById('pet-cards');
+    petCardsContainer.innerHTML = '';
 
     pets.forEach(pet => {
-        const petDiv = document.createElement('div');
-        petDiv.className = 'pet-card';
-        petDiv.innerHTML = `
-            <img src="${pet.image_url}" alt="${pet.name}">
-            <h3>${pet.name}</h3>
-            <p>Type: ${pet.pet_type}</p>
-            <p>Breed: ${pet.breed}</p>
-            <p>Age: ${pet.age}</p>
-        `;
-        petContainer.appendChild(petDiv);
+      // Create a card div
+      const card = document.createElement('div');
+      card.classList.add('pet-card');
+
+      // If you have an image_url in your API data
+      // else you can place a placeholder image
+      const imageUrl = pet.image_url || 'https://via.placeholder.com/250';
+
+      card.innerHTML = `
+        <img src="${imageUrl}" alt="${pet.name}">
+        <h3>${pet.name}</h3>
+        <p>Type: ${pet.pet_type}</p>
+        <p>Breed: ${pet.breed}</p>
+        <button onclick="viewClothes('${pet.pet_type}', '${pet.breed}')">
+          More Details
+        </button>
+      `;
+
+      petCardsContainer.appendChild(card);
     });
+  } catch (error) {
+    console.error('Error loading pets:', error);
+  }
 }
 
-document.getElementById('loadMoreBtn').addEventListener('click', loadPets);
+document.getElementById('load-more-pets').addEventListener('click', loadPets);
 
+// Optionally call loadPets() on page load
 window.onload = loadPets;
