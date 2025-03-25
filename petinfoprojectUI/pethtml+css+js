@@ -157,15 +157,17 @@
   <!-- Main Content: Interesting Facts Section -->
   <main>
     <section>
-      <!-- Link to weather.html opens in new tab -->
+      <!-- Weather Button (opens weather.html in a new tab) -->
+      <div style="text-align:center; margin-top:20px;">
+        <button id="weather-btn" class="primary-btn">Check Out Weather</button>
+      </div>
       
-      <h2 style="text-align:center; margin-top:20px;"> Interesting Facts About Pets</h2>
+      <h2 style="text-align:center; margin-top:20px;">🐶 Interesting Facts About Pets</h2>
       <div class="card-container" id="fact-cards">
         <!-- Fact cards will be dynamically inserted here -->
       </div>
       <div style="text-align:center;">
         <button id="load-more-facts" class="primary-btn">Load More Facts</button>
-        <button id="load-more-facts" class="primary-btn">check out weather</button>
       </div>
     </section>
   </main>
@@ -193,29 +195,27 @@
       "Horses can sleep both lying down and standing up."
     ];
 
-    // Function to display random facts (or all facts)
+    // Function to display all facts at once
     function loadFacts() {
       const factCardsContainer = document.getElementById('fact-cards');
       factCardsContainer.innerHTML = ""; // Clear existing content
 
-      // Option A: Show all facts at once
       petFacts.forEach(fact => {
         const card = document.createElement('div');
         card.classList.add('fact-card');
         card.innerHTML = `<p>${fact}</p>`;
         factCardsContainer.appendChild(card);
       });
-
-      // Option B (If you want only 1 random fact per click):
-      // const randomIndex = Math.floor(Math.random() * petFacts.length);
-      // const card = document.createElement('div');
-      // card.classList.add('fact-card');
-      // card.innerHTML = `<p>${petFacts[randomIndex]}</p>`;
-      // factCardsContainer.appendChild(card);
     }
 
     // Event listener for "Load More Facts" button
     document.getElementById('load-more-facts').addEventListener('click', loadFacts);
+
+    // Event listener for "Check Out Weather" button
+    document.getElementById('weather-btn').addEventListener('click', () => {
+      // Opens weather.html in a new tab. Make sure weather.html exists with your weather API code.
+      window.open('weather.html', '_blank');
+    });
 
     // (Optional) Automatically load facts on page load
     // window.onload = loadFacts;
