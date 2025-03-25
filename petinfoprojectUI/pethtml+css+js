@@ -158,9 +158,6 @@
   <main>
     <section>
       <!-- Link to weather.html opens in new tab -->
-      <a href="weather.html" target="_blank" class="primary-btn">
-        Check the Weather
-      </a>
       
       <h2 style="text-align:center; margin-top:20px;">🐶 Interesting Facts About Pets</h2>
       <div class="card-container" id="fact-cards">
