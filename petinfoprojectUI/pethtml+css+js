@@ -159,12 +159,13 @@
     <section>
       <!-- Link to weather.html opens in new tab -->
       
-      <h2 style="text-align:center; margin-top:20px;">🐶 Interesting Facts About Pets</h2>
+      <h2 style="text-align:center; margin-top:20px;"> Interesting Facts About Pets</h2>
       <div class="card-container" id="fact-cards">
         <!-- Fact cards will be dynamically inserted here -->
       </div>
       <div style="text-align:center;">
         <button id="load-more-facts" class="primary-btn">Load More Facts</button>
+        <button id="load-more-facts" class="primary-btn">check out weather</button>
       </div>
     </section>
   </main>
