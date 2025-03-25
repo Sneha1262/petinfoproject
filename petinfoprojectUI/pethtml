@@ -2,16 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PetInfo Blog</title>
+  <title>PetInfoBlog</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Navigation Bar -->
   <header class="navbar">
     <div class="nav-left">
-      <h1>PetInfoBlog</h1>
+      <h1 class="logo">PetInfoBlog</h1>
+      <!-- Hamburger Icon (for mobile) -->
+      <div class="hamburger" id="hamburger">
+        &#9776; <!-- Unicode hamburger menu symbol -->
+      </div>
     </div>
-    <nav>
+    <nav id="nav-menu" class="nav-menu">
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
         <li><a href="#">Pets</a></li>
@@ -19,15 +23,15 @@
         <li><a href="#">Clothes</a></li>
         <li><a href="#">About</a></li>
       </ul>
+      <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-bar">
+      </div>
     </nav>
-    <div class="nav-right">
-      <input type="text" placeholder="Search..." class="search-bar" />
-    </div>
   </header>
 
-  <!-- Hero/Banner Section -->
+  <!-- Hero / Banner Section -->
   <section class="hero">
-    <!-- Replace banner.jpg with your own banner image or an S3 URL -->
+    <!-- Replace with your own banner image URL or local image -->
     <img src="banner.jpg" alt="Banner" class="hero-image" />
     <div class="hero-text">
       <h2>Welcome to PetInfoBlog!</h2>
@@ -39,19 +43,19 @@
     <!-- Pets Section (Your API) -->
     <section class="pets-section">
       <h2>🐶 Pet Cards (Your API)</h2>
-      <div id="pet-cards" class="card-container">
-        <!-- Pet cards will be inserted here by your JavaScript (pet.js) -->
+      <div class="card-container" id="pet-cards">
+        <!-- Dynamically populated from pet.js -->
       </div>
-      <button id="load-more-pets">Load More Pets</button>
+      <button id="load-more-pets" class="primary-btn">Load More Pets</button>
     </section>
 
     <!-- Events Section (Classmate's Events API) -->
     <section class="events-section">
       <h2>📅 Pet Events Nearby</h2>
-      <div id="event-cards" class="card-container">
-        <!-- Event cards will be inserted here by your JavaScript (events.js) -->
+      <div class="card-container" id="event-cards">
+        <!-- Dynamically populated from events.js -->
       </div>
-      <button id="view-all-events">View All Upcoming Events</button>
+      <button id="view-all-events" class="primary-btn">View All Upcoming Events</button>
     </section>
   </main>
 
@@ -60,9 +64,18 @@
     <p>&copy; 2025 PetInfoBlog. All rights reserved.</p>
   </footer>
 
-  <!-- JavaScript Files -->
-  <!-- e.g. pet.js for your Pet API, events.js for your classmate's Events API -->
+  <!-- JavaScript (pet.js, events.js, etc.) -->
   <script src="pet.js"></script>
   <script src="events.js"></script>
+
+  <!-- Simple Script to Toggle Navbar on Mobile -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
