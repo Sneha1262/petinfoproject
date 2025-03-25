@@ -130,6 +130,16 @@
       color: #fff;
       border-radius: 4px;
     }
+    /* Weather Section Styles */
+    #weather-info {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
@@ -154,15 +164,20 @@
     </nav>
   </header>
   
-  <!-- Main Content: Interesting Facts Section -->
+  <!-- Main Content -->
   <main>
-    <section>
-      <!-- Weather Button (opens weather.html in a new tab) -->
-      <div style="text-align:center; margin-top:20px;">
-        <button id="weather-btn" class="primary-btn">Check Out Weather</button>
+    <!-- Weather Section -->
+    <section style="margin-bottom:40px;">
+      <h2 style="text-align:center;">Check the Weather</h2>
+      <div style="text-align:center;">
+        <button id="weather-btn" class="primary-btn">Check Weather</button>
       </div>
-      
-      <h2 style="text-align:center; margin-top:20px;">🐶 Interesting Facts About Pets</h2>
+      <div id="weather-info"></div>
+    </section>
+    
+    <!-- Interesting Facts Section -->
+    <section>
+      <h2 style="text-align:center;">🐶 Interesting Facts About Pets</h2>
       <div class="card-container" id="fact-cards">
         <!-- Fact cards will be dynamically inserted here -->
       </div>
@@ -172,7 +187,7 @@
     </section>
   </main>
   
-  <!-- JavaScript to toggle navbar and display facts -->
+  <!-- JavaScript -->
   <script>
     // Toggle the mobile navbar
     const hamburger = document.getElementById('hamburger');
@@ -180,8 +195,58 @@
     hamburger.addEventListener('click', () => {
       navMenu.classList.toggle('active');
     });
-    
-    // Array of interesting facts about pets
+
+    // Weather API Integration using Open-Meteo
+    // Using Dublin coordinates: latitude=53.3498, longitude=-6.2603
+    const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=53.3498&longitude=-6.2603&current_weather=true";
+    const weatherBtn = document.getElementById('weather-btn');
+    const weatherInfo = document.getElementById('weather-info');
+
+    function getWeatherSuggestion(weathercode) {
+      // Simple suggestion logic based on weather code from Open-Meteo
+      // Weather code meanings from https://open-meteo.com/en/docs#latitude=53.3498&longitude=-6.2603&current_weather=true
+      if (weathercode === 0) {
+        return "Clear sky! Perfect day for a walk with your pet.";
+      } else if (weathercode >= 1 && weathercode <= 3) {
+        return "Mostly clear. A nice day to take your pet out, but maybe bring a light jacket.";
+      } else if (weathercode >= 45 && weathercode <= 67) {
+        return "It might be a bit damp or foggy. Consider keeping your pet indoors or be cautious.";
+      } else if (weathercode >= 61 && weathercode <= 82) {
+        return "Rain showers expected. Better to keep your pet indoors or plan for a short outing.";
+      } else if (weathercode >= 95) {
+        return "Severe weather alert! Best to keep your pet safe indoors until conditions improve.";
+      } else {
+        return "Weather seems moderate. Enjoy a calm walk with your pet!";
+      }
+    }
+
+    async function checkWeather() {
+      try {
+        weatherInfo.innerHTML = "Loading weather data...";
+        const response = await fetch(weatherUrl);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        const currentWeather = data.current_weather;
+        const temperature = currentWeather.temperature;
+        const weathercode = currentWeather.weathercode;
+        const suggestion = getWeatherSuggestion(weathercode);
+
+        weatherInfo.innerHTML = `
+          <h3>Current Weather in Dublin</h3>
+          <p>Temperature: ${temperature}°C</p>
+          <p>${suggestion}</p>
+        `;
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+        weatherInfo.innerHTML = "<p style='color:red;'>Unable to retrieve weather data.</p>";
+      }
+    }
+
+    weatherBtn.addEventListener('click', checkWeather);
+
+    // Interesting Facts Section
     const petFacts = [
       "Dogs have a sense of time and can miss you when you’re gone.",
       "Cats can jump up to six times their length.",
@@ -195,11 +260,9 @@
       "Horses can sleep both lying down and standing up."
     ];
 
-    // Function to display all facts at once
     function loadFacts() {
       const factCardsContainer = document.getElementById('fact-cards');
-      factCardsContainer.innerHTML = ""; // Clear existing content
-
+      factCardsContainer.innerHTML = "";
       petFacts.forEach(fact => {
         const card = document.createElement('div');
         card.classList.add('fact-card');
@@ -208,16 +271,8 @@
       });
     }
 
-    // Event listener for "Load More Facts" button
     document.getElementById('load-more-facts').addEventListener('click', loadFacts);
-
-    // Event listener for "Check Out Weather" button
-    document.getElementById('weather-btn').addEventListener('click', () => {
-      // Opens weather.html in a new tab. Make sure weather.html exists with your weather API code.
-      window.open('weather.html', '_blank');
-    });
-
-    // (Optional) Automatically load facts on page load
+    // (Optional) Auto-load facts on page load:
     // window.onload = loadFacts;
   </script>
 </body>
