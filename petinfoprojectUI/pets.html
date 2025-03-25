@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pets - PetInfoBlog</title>
+  <style>
+    /* Basic styling or copy from your main CSS */
+  </style>
+</head>
+<body>
+  <h1>Pet Information</h1>
+  <div id="pet-container"></div>
+
+  <script>
+    async function loadPetData() {
+      try {
+        const response = await fetch("http://35.173.214.218:8000/api/pets/");
+        const pets = await response.json();
+
+        const petContainer = document.getElementById("pet-container");
+        petContainer.innerHTML = ""; // clear existing
+
+        pets.forEach(pet => {
+          const petDiv = document.createElement('div');
+          petDiv.innerHTML = `
+            <h3>${pet.name}</h3>
+            <p>Type: ${pet.pet_type}</p>
+            <p>Breed: ${pet.breed}</p>
+          `;
+          petContainer.appendChild(petDiv);
+        });
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      }
+    }
+
+    // load data on page load
+    window.onload = loadPetData;
+  </script>
+</body>
+</html>
