@@ -154,7 +154,7 @@
     <nav id="nav-menu" class="nav-menu">
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Pets</a></li>
+        <li><a href="pets.html">Pets</a></li>
         <li><a href="#">Events</a></li>
         <li><a href="#">Clothes</a></li>
         <li><a href="#">About</a></li>
