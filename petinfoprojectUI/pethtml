@@ -156,7 +156,7 @@
   <!-- Main Content: Pet Cards Section -->
   <main>
     <section>
-      <h2 style="text-align:center; margin-top:20px;">🐶 Pet Cards (Your API)</h2>
+      <h2 style="text-align:center; margin-top:20px;">🐶 Interesting facts about pets</h2>
       <div class="card-container" id="pet-cards">
         <!-- Pet cards will be dynamically inserted here -->
       </div>
@@ -210,3 +210,4 @@
   </script>
 </body>
 </html>
+
