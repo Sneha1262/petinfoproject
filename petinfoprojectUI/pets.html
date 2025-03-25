@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PetInfoBlog</title>
+  <title>Pets - PetInfoBlog</title>
   <style>
     /* Global Styles */
     * {
@@ -15,7 +15,7 @@
       background-color: #f7f7f7;
       color: #333;
     }
-    
+
     /* Navbar Styles */
     .navbar {
       display: flex;
@@ -93,27 +93,19 @@
       }
     }
 
-    /* Main Content */
-    main {
+    /* Main Container */
+    .pets-container {
       width: 90%;
       max-width: 1200px;
       margin: 20px auto;
-    }
-
-    /* Example sections for Facts & Weather */
-    .section {
-      margin-bottom: 40px;
       text-align: center;
     }
-
-    /* PETS SECTION (initially hidden) */
-    #pets-section {
-      display: none; /* We'll show it when user clicks 'Pets' */
-      margin-bottom: 40px;
-      text-align: center;
+    h1 {
+      margin-bottom: 20px;
     }
 
-    .pet-card-container {
+    /* Card Layout */
+    .card-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
@@ -133,20 +125,27 @@
       margin: 5px 0;
       font-size: 1.1rem;
     }
+    /* Error message styling (optional) */
+    .error-msg {
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
+  <!-- Navigation Bar -->
   <header class="navbar">
     <div class="nav-left">
       <h1 class="logo">PetInfoBlog</h1>
+      <!-- Hamburger Icon (visible on mobile) -->
       <div class="hamburger" id="hamburger">&#9776;</div>
     </div>
     <nav id="nav-menu" class="nav-menu">
       <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <!-- Notice we give 'Pets' an ID so we can handle its click in JS -->
-        <li><a href="#" id="pets-link">Pets</a></li>
+        <!-- Adjust links to match your site structure -->
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pets.html" style="color:#ffce00;">Pets</a></li>
         <li><a href="#">Events</a></li>
         <li><a href="#">Clothes</a></li>
         <li><a href="#">About</a></li>
@@ -157,40 +156,26 @@
     </nav>
   </header>
 
-  <main>
-    <!-- Example sections for other content (Facts, Weather, etc.) -->
-    <section class="section">
-      <h2>Interesting Facts About Pets</h2>
-      <!-- Your existing 'Load More Facts' code can go here -->
-      <p>Placeholder content for other sections...</p>
-    </section>
-
-    <!-- PETS SECTION -->
-    <section id="pets-section">
-      <h2>Our Pets</h2>
-      <div id="pets-container" class="pet-card-container">
-        <!-- Pet cards will appear here -->
-      </div>
-    </section>
-  </main>
+  <!-- Main Content -->
+  <div class="pets-container">
+    <h1>Our Pets</h1>
+    <div id="pet-cards" class="card-container">
+      <!-- Pet cards will be dynamically inserted here -->
+    </div>
+    <div id="error-message" class="error-msg"></div>
+  </div>
 
   <script>
-    // Navbar toggle for mobile
+    // Toggle navbar for mobile
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     hamburger.addEventListener('click', () => {
       navMenu.classList.toggle('active');
     });
 
-    // Handle 'Pets' link click
-    const petsLink = document.getElementById('pets-link');
-    petsLink.addEventListener('click', (event) => {
-      event.preventDefault(); // Prevent normal link navigation
-      loadPets(); // fetch pet data
-      document.getElementById('pets-section').style.display = "block"; // show the pets section
-    });
+    // Load pets on page load
+    window.onload = loadPets;
 
-    // Fetch your Django API to display pets as cards
     async function loadPets() {
       try {
         const response = await fetch("http://35.173.214.218:8000/api/pets/");
@@ -199,27 +184,32 @@
         }
         const pets = await response.json();
 
-        const petsContainer = document.getElementById('pets-container');
-        petsContainer.innerHTML = ""; // Clear existing content
+        const petCardsContainer = document.getElementById("pet-cards");
+        const errorMsg = document.getElementById("error-message");
 
+        // Clear existing content
+        petCardsContainer.innerHTML = "";
+        errorMsg.textContent = "";
+
+        // Create a card for each pet
         pets.forEach(pet => {
-          // Create a card div
-          const card = document.createElement('div');
-          card.classList.add('pet-card');
+          const card = document.createElement("div");
+          card.classList.add("pet-card");
+          
+          // If your API includes fields like image_url, you can add <img> tag here
+          // e.g. <img src="${pet.image_url}" alt="${pet.name}" style="width:100%;height:auto;margin-bottom:10px;" />
 
-          // If your API returns fields like "name", "pet_type", "breed", etc.:
           card.innerHTML = `
             <h3>${pet.name}</h3>
             <p>Type: ${pet.pet_type}</p>
             <p>Breed: ${pet.breed}</p>
             <p>Age: ${pet.age || "N/A"}</p>
           `;
-          petsContainer.appendChild(card);
+          petCardsContainer.appendChild(card);
         });
       } catch (error) {
         console.error("Error loading pets:", error);
-        document.getElementById('pets-container').innerHTML = 
-          `<p style="color:red;">Could not load pet data.</p>`;
+        document.getElementById("error-message").textContent = "Could not load pet data.";
       }
     }
   </script>
