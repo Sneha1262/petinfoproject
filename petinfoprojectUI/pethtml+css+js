@@ -184,7 +184,7 @@
       <div id="weather-info"></div>
     </section>
     <section> 
-
+      <div id="products-container" class="fashion-gallery"></div>
     </section><button id="fetchDataButton" class="cta-button">🐾 Pet Fashion</button> </section>
   </main>
   
@@ -270,6 +270,7 @@
     }
 
     weatherBtn.addEventListener('click', checkWeather);
+    const productsContainer = document.getElementById('products-container');
   // Fetch Pet Fashion (Real API)
   document.getElementById('fetchDataButton').addEventListener('click', function() {
             fetchProducts();
