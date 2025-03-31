@@ -58,6 +58,14 @@
     .nav-links li a:hover {
       color: #ffce00;
     }
+    .search-container {
+      margin-left: 20px;
+    }
+    .search-bar {
+      padding: 6px;
+      border: none;
+      border-radius: 4px;
+    }
     
     /* Responsive Navbar */
     @media (max-width: 768px) {
@@ -84,7 +92,7 @@
         width: 100%;
       }
     }
-
+    
     /* Main Content & Cards */
     main {
       width: 90%;
@@ -132,12 +140,6 @@
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    
-    /* Pets Section Styles */
-    #pets-info {
-      margin-top: 20px;
-      /* Reuse the same .card-container / .fact-card styles if desired */
-    }
   </style>
 </head>
 <body>
@@ -151,8 +153,8 @@
     <nav id="nav-menu" class="nav-menu">
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <!-- Instead of linking to a separate page, we use '#' and an ID to fetch data dynamically -->
-        <li><a href="#" id="pets-link">Pets</a></li>
+        <!-- Replace the 'pets.html' link with your Django API endpoint -->
+        <li><a href="http://35.173.214.218:8000/api/pets/" target="_blank">Pets</a></li>
         <li><a href="#">Events</a></li>
         <li><a href="#">Clothes</a></li>
         <li><a href="#">About</a></li>
@@ -162,7 +164,7 @@
   
   <!-- Main Content -->
   <main>
-    <!-- Interesting Facts Section -->
+    <!-- Interesting Facts Section FIRST -->
     <section>
       <h2 style="text-align:center;">Interesting Facts About Pets</h2>
       <div class="card-container" id="fact-cards">
@@ -173,7 +175,7 @@
       </div>
     </section>
 
-    <!-- Weather Section -->
+    <!-- Weather Section BELOW the facts -->
     <section style="margin-top:40px;">
       <h2 style="text-align:center;">Weather</h2>
       <div style="text-align:center;">
@@ -181,24 +183,18 @@
       </div>
       <div id="weather-info"></div>
     </section>
-
-    <!-- Pets Section (Dynamically Fetched from Django API) -->
-    <section style="margin-top:40px;">
-      <h2 style="text-align:center;">Pets</h2>
-      <div id="pets-info" class="card-container"></div>
-    </section>
   </main>
   
   <!-- JavaScript -->
   <script>
-    // Toggle mobile navbar
+    // Toggle the mobile navbar
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     hamburger.addEventListener('click', () => {
       navMenu.classList.toggle('active');
     });
 
-    // 1) Interesting Facts
+    // Interesting Facts Section
     const petFacts = [
       "Dogs have a sense of time and can miss you when you’re gone.",
       "Cats can jump up to six times their length.",
@@ -225,7 +221,7 @@
 
     document.getElementById('load-more-facts').addEventListener('click', loadFacts);
 
-    // 2) Weather API
+    // Weather API Integration using Open-Meteo (Dublin coords)
     const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=53.3498&longitude=-6.2603&current_weather=true";
     const weatherBtn = document.getElementById('weather-btn');
     const weatherInfo = document.getElementById('weather-info');
@@ -271,44 +267,6 @@
     }
 
     weatherBtn.addEventListener('click', checkWeather);
-
-    // 3) Pets (Django API) 
-    const petsLink = document.getElementById('pets-link');
-    const petsInfo = document.getElementById('pets-info');
-
-    // When user clicks "Pets" in the navbar
-    petsLink.addEventListener('click', (event) => {
-      event.preventDefault(); // prevent navigating away
-      checkPets();            // fetch the pets
-    });
-
-    async function checkPets() {
-      try {
-        petsInfo.innerHTML = "<p>Loading pet data...</p>";
-        const response = await fetch("http://35.173.214.218:8000/api/pets/");
-        if (!response.ok) {
-          throw new Error(`Failed to fetch pets: ${response.status}`);
-        }
-        const pets = await response.json();
-
-        petsInfo.innerHTML = "";
-
-        pets.forEach(pet => {
-          const card = document.createElement('div');
-          card.classList.add('fact-card'); // reuse the fact-card style
-          card.innerHTML = `
-            <h3>${pet.name}</h3>
-            <p>Type: ${pet.pet_type}</p>
-            <p>Breed: ${pet.breed}</p>
-            <p>Age: ${pet.age || "N/A"}</p>
-          `;
-          petsInfo.appendChild(card);
-        });
-      } catch (error) {
-        console.error("Error fetching pets:", error);
-        petsInfo.innerHTML = "<p style='color:red;'>Could not load pet data.</p>";
-      }
-    }
   </script>
 </body>
 </html>
