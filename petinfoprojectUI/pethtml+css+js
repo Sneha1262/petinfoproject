@@ -336,7 +336,30 @@ document.getElementById('loadPetInfoBtn').addEventListener('click', function () 
 
 
     // check weather function()
-    function getWeatherEmoji(code) {
+   // Weather API Integration using Open-Meteo (Dublin coords)
+const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=53.3498&longitude=-6.2603&current_weather=true";
+const weatherBtn = document.getElementById('weather-btn');
+const weatherInfo = document.getElementById('weather-info');
+
+let weatherVisible = false;
+
+function getWeatherSuggestion(weathercode) {
+  if (weathercode === 0) {
+    return "Clear sky! Perfect day for a walk with your pet.";
+  } else if (weathercode >= 1 && weathercode <= 3) {
+    return "Mostly clear. A nice day to take your pet out, but maybe bring a light jacket.";
+  } else if (weathercode >= 45 && weathercode <= 67) {
+    return "It might be a bit damp or foggy. Consider keeping your pet indoors or be cautious.";
+  } else if (weathercode >= 61 && weathercode <= 82) {
+    return "Rain showers expected. Better to keep your pet indoors or plan for a short outing.";
+  } else if (weathercode >= 95) {
+    return "Severe weather alert! Best to keep your pet safe indoors until conditions improve.";
+  } else {
+    return "Weather seems moderate. Enjoy a calm walk with your pet!";
+  }
+}
+
+function getWeatherEmoji(code) {
   if (code === 0) return "☀️";
   if (code >= 1 && code <= 3) return "🌤️";
   if (code >= 45 && code <= 48) return "🌫️";
@@ -369,9 +392,11 @@ async function checkWeather() {
     const emoji = getWeatherEmoji(weathercode);
 
     weatherInfo.innerHTML = `
-      <h3>${emoji} Current Weather in Dublin</h3>
-      <p><strong>Temperature:</strong> ${temperature}°C</p>
-      <p>${suggestion}</p>
+      <div class="weather-card">
+        <h3>${emoji} Current Weather in Dublin</h3>
+        <p><strong>Temperature:</strong> ${temperature}°C</p>
+        <p>${suggestion}</p>
+      </div>
     `;
 
     weatherBtn.textContent = "Hide Weather";
@@ -382,6 +407,9 @@ async function checkWeather() {
     weatherInfo.innerHTML = "<p style='color:red;'>Unable to retrieve weather data.</p>";
   }
 }
+
+weatherBtn.addEventListener('click', checkWeather);
+
 
 
   // Sandra's Fetch Pet Fashion (Real API)
