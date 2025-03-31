@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>PetInfoBlog</title>
   <style>
-    /* Global Styles */
     * {
       margin: 0;
       padding: 0;
@@ -12,11 +11,9 @@
     }
     body {
       font-family: "Times New Roman", Times, serif;
-      background-color: #c8c0c0;
+      background-color: #e7e2e2;
       color: #333;
     }
-    
-    /* Navbar Styles */
     .navbar {
       display: flex;
       align-items: center;
@@ -38,305 +35,261 @@
       font-size: 1.5rem;
       cursor: pointer;
     }
-    .nav-menu {
-      display: flex;
-      align-items: center;
-    }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      margin: 0;
-      padding: 0;
-    }
-    .nav-links li a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    .nav-links li a:hover {
-      color: #ffce00;
-    }
-    .search-container {
-      margin-left: 20px;
-    }
-    .search-bar {
-      padding: 6px;
-      border: none;
-      border-radius: 4px;
-    }
-    
-    /* Responsive Navbar */
+
     @media (max-width: 768px) {
       .hamburger {
         display: block;
       }
-      .nav-menu {
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background-color: #2c3e50;
-        flex-direction: column;
-        width: 100%;
-        align-items: flex-start;
-        padding: 10px 20px;
-        display: none;
-      }
-      .nav-menu.active {
-        display: flex;
-      }
-      .nav-links {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-      }
     }
-    
-    /* Main Content & Cards */
+
     main {
       width: 90%;
       max-width: 1200px;
       margin: 20px auto;
     }
+
+    .feature-section {
+      text-align: center;
+      margin: 50px auto;
+    }
+
+    .feature-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .primary-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background-color: #2c3e50;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .primary-btn:hover {
+      background-color: #1b2b3a;
+    }
+
     .card-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      margin-top: 20px;
+      margin: 20px auto;
+      padding: 0 20px;
     }
-    .fact-card {
+
+    .weather-card {
+      margin: 20px auto;
+      max-width: 600px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      color: #2c3e50;
+      font-family: 'Segoe UI', sans-serif;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pet-card {
       background-color: #fff;
       border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 15px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      transition: transform 0.2s;
     }
-    .fact-card p {
-      font-size: 1.1rem;
-      line-height: 1.4;
+
+    .pet-card:hover {
+      transform: scale(1.02);
     }
-    .primary-btn {
-      display: inline-block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
+
+    .pet-card h3 {
+      color: #2c3e50;
+      font-size: 1.2rem;
+    }
+
+    .pet-card .date {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .read-more {
+      margin-top: 10px;
+      background-color: #e74c3c;
+      color: white;
+      padding: 6px 12px;
       border: none;
-      background-color: #2c3e50;
-      color: #fff;
       border-radius: 4px;
+      cursor: pointer;
     }
-    /* Weather Section Styles */
-    .weather-card {
-  margin: 20px auto;
-  max-width: 600px;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  color: #2c3e50;
-  font-family: 'Segoe UI', sans-serif;
-  animation: fadeIn 0.5s ease-in-out;
-}
 
-.weather-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
+    .quote-section {
+      margin: 60px auto;
+      text-align: center;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+    }
 
-.weather-card p {
-  font-size: 1.05rem;
-  margin: 5px 0;
-}
+    .quote-section blockquote {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #444;
+      line-height: 1.6;
+    }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-  
-    /*mypetapi*/
-    .pet-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 15px;
-  text-align: center;
-  transition: transform 0.2s;
-}
-.pet-card:hover {
-  transform: scale(1.02);
-}
-.pet-card h3 {
-  color: #2c3e50;
-  font-size: 1.2rem;
-}
-.pet-card .date {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 10px;
-}
-.pet-card p {
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.read-more {
-  margin-top: 10px;
-  background-color: #e74c3c;
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
+    .quote-section cite {
+      display: block;
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #666;
+    }
   </style>
 </head>
 <body>
-
-  <!-- Navigation Bar -->
   <header class="navbar">
     <div class="nav-left">
       <h1 class="logo">Pet Information Blog</h1>
-      <!-- Hamburger Icon (visible on mobile) -->
       <div class="hamburger" id="hamburger">&#9776;</div>
     </div>
-    </nav>
   </header>
-  
-  <!-- Main Content -->
-  <section style="margin-top: 40px;">
-    <h2 style="text-align:center;">Pet Info Cards</h2>
-    <div style="text-align:center;">
-      <button id="loadPetInfoBtn" class="primary-btn">Show Pet Info</button>
+
+  <!-- Feature Buttons Section -->
+  <section class="feature-section">
+    <h2>Explore Our Features</h2>
+    <div class="feature-buttons">
+      <button id="loadPetInfoBtn" class="primary-btn">Pet Info</button>
+      <button id="weather-btn" class="primary-btn">Weather</button>
+      <button id="fetchDataButton" class="primary-btn">Pet Fashion</button>
     </div>
-    <div id="petCardsContainer" class="card-container"></div>
   </section>
-  
 
-    <!-- Weather Section BELOW the facts -->
-   <!-- Weather Section -->
-<section style="margin-top:40px;">
-  <h2 style="text-align:center;">Weather</h2>
-  <div style="text-align:center;">
-    <button id="weather-btn" class="primary-btn">Check Weather</button>
-  </div>
+  <!-- API Sections -->
+  <div id="petCardsContainer" class="card-container"></div>
   <div id="weather-info"></div>
-</section>
+  <div id="products-container" class="card-container"></div>
 
-    <!-- Pet Fashion Section -->
-<section style="margin-top: 40px;">
-  <h2 style="text-align:center;">Pet Fashion</h2>
-  <div style="text-align:center;">
-    <button id="fetchDataButton" class="primary-btn">Pet Fashion</button>
-  </div>
-  <div id="products-container" class="fashion-gallery" style="margin-top: 20px;"></div>
-</section>
-  </main>
+  <!-- Pet Quotes Section -->
+  <section class="quote-section">
+    <blockquote>
+      "Pets are humanizing. They remind us we have an obligation and responsibility to preserve and nurture and care for all life."
+    </blockquote>
+    <cite>- James Cromwell</cite>
+  </section>
+</body>
+</html>
 
+<!-- JavaScript -->
+<script>
+  // Toggle the mobile navbar
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
 
-  
-  <!-- JavaScript -->
-  <script>
-    // Toggle the mobile navbar
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-
-    //myapicards
-    let petDataLoaded = false;
+  //myapicards
+  let petDataLoaded = false;
 let petCardsVisible = false;
 
 document.getElementById('loadPetInfoBtn').addEventListener('click', function () {
-  const container = document.getElementById('petCardsContainer');
-  const button = document.getElementById('loadPetInfoBtn');
+const container = document.getElementById('petCardsContainer');
+const button = document.getElementById('loadPetInfoBtn');
 
-  // If already visible, hide them
-  if (petCardsVisible) {
-    container.innerHTML = "";
-    button.textContent = "Show Pet Info";
-    petCardsVisible = false;
-    return;
-  }
+// If already visible, hide them
+if (petCardsVisible) {
+  container.innerHTML = "";
+  button.textContent = "Show Pet Info";
+  petCardsVisible = false;
+  return;
+}
 
-  // If not loaded before, fetch from API
-  if (!petDataLoaded) {
-    fetch('http://35.173.214.218:8000/api/pets/')
-      .then(response => response.json())
-      .then(data => {
-        if (data.length === 0) {
-          container.innerHTML = "<p>No pet data available.</p>";
-          return;
-        }
+// If not loaded before, fetch from API
+if (!petDataLoaded) {
+  fetch('http://35.173.214.218:8000/api/pets/')
+    .then(response => response.json())
+    .then(data => {
+      if (data.length === 0) {
+        container.innerHTML = "<p>No pet data available.</p>";
+        return;
+      }
 
-        data.forEach(pet => {
-          const card = document.createElement('div');
-          card.classList.add('pet-card');
+      data.forEach(pet => {
+        const card = document.createElement('div');
+        card.classList.add('pet-card');
 
-          const createdDate = new Date(pet.created_at).toLocaleDateString('en-US', {
-            year: 'numeric', month: 'long', day: 'numeric'
-          });
-
-          card.innerHTML = `
-            <h3>${pet.name} (${pet.pet_type})</h3>
-            <div class="date">${createdDate}</div>
-            <p><strong>Breed:</strong> ${pet.breed || 'Not specified'}</p>
-            <p><strong>Age:</strong> ${pet.age} years</p>
-            <p>${pet.description}</p>
-            <button class="read-more">Read More</button>
-          `;
-          container.appendChild(card);
+        const createdDate = new Date(pet.created_at).toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
         });
 
-        petDataLoaded = true;
-        petCardsVisible = true;
-        button.textContent = "Hide Pet Info";
-      })
-      .catch(error => {
-        console.error("Error fetching pets:", error);
-        container.innerHTML = "<p>Error loading pet info.</p>";
+        card.innerHTML = `
+          <h3>${pet.name} (${pet.pet_type})</h3>
+          <div class="date">${createdDate}</div>
+          <p><strong>Breed:</strong> ${pet.breed || 'Not specified'}</p>
+          <p><strong>Age:</strong> ${pet.age} years</p>
+          <p>${pet.description}</p>
+          <button class="read-more">Read More</button>
+        `;
+        container.appendChild(card);
       });
-  } else {
-    // If already loaded, just show it again
-    fetch('http://35.173.214.218:8000/api/pets/')
-      .then(response => response.json())
-      .then(data => {
-        data.forEach(pet => {
-          const card = document.createElement('div');
-          card.classList.add('pet-card');
 
-          const createdDate = new Date(pet.created_at).toLocaleDateString('en-US', {
-            year: 'numeric', month: 'long', day: 'numeric'
-          });
+      petDataLoaded = true;
+      petCardsVisible = true;
+      button.textContent = "Hide Pet Info";
+    })
+    .catch(error => {
+      console.error("Error fetching pets:", error);
+      container.innerHTML = "<p>Error loading pet info.</p>";
+    });
+} else {
+  // If already loaded, just show it again
+  fetch('http://35.173.214.218:8000/api/pets/')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(pet => {
+        const card = document.createElement('div');
+        card.classList.add('pet-card');
 
-          card.innerHTML = `
-            <h3>${pet.name} (${pet.pet_type})</h3>
-            <div class="date">${createdDate}</div>
-            <p><strong>Breed:</strong> ${pet.breed || 'Not specified'}</p>
-            <p><strong>Age:</strong> ${pet.age} years</p>
-            <p>${pet.description}</p>
-            <button class="read-more">Read More</button>
-          `;
-          container.appendChild(card);
+        const createdDate = new Date(pet.created_at).toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
         });
 
-        petCardsVisible = true;
-        button.textContent = "Hide Pet Info";
+        card.innerHTML = `
+          <h3>${pet.name} (${pet.pet_type})</h3>
+          <div class="date">${createdDate}</div>
+          <p><strong>Breed:</strong> ${pet.breed || 'Not specified'}</p>
+          <p><strong>Age:</strong> ${pet.age} years</p>
+          <p>${pet.description}</p>
+          <button class="read-more">Read More</button>
+        `;
+        container.appendChild(card);
       });
-  }
+
+      petCardsVisible = true;
+      button.textContent = "Hide Pet Info";
+    });
+}
 });
 
 
 
-    // check weather function()
-   // Weather API Integration using Open-Meteo (Dublin coords)
+  // check weather function()
+ // Weather API Integration using Open-Meteo (Dublin coords)
 const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=53.3498&longitude=-6.2603&current_weather=true";
 const weatherBtn = document.getElementById('weather-btn');
 const weatherInfo = document.getElementById('weather-info');
@@ -344,94 +297,94 @@ const weatherInfo = document.getElementById('weather-info');
 let weatherVisible = false;
 
 function getWeatherSuggestion(weathercode) {
-  if (weathercode === 0) {
-    return "Clear sky! Perfect day for a walk with your pet.";
-  } else if (weathercode >= 1 && weathercode <= 3) {
-    return "Mostly clear. A nice day to take your pet out, but maybe bring a light jacket.";
-  } else if (weathercode >= 45 && weathercode <= 67) {
-    return "It might be a bit damp or foggy. Consider keeping your pet indoors or be cautious.";
-  } else if (weathercode >= 61 && weathercode <= 82) {
-    return "Rain showers expected. Better to keep your pet indoors or plan for a short outing.";
-  } else if (weathercode >= 95) {
-    return "Severe weather alert! Best to keep your pet safe indoors until conditions improve.";
-  } else {
-    return "Weather seems moderate. Enjoy a calm walk with your pet!";
-  }
+if (weathercode === 0) {
+  return "Clear sky! Perfect day for a walk with your pet.";
+} else if (weathercode >= 1 && weathercode <= 3) {
+  return "Mostly clear. A nice day to take your pet out, but maybe bring a light jacket.";
+} else if (weathercode >= 45 && weathercode <= 67) {
+  return "It might be a bit damp or foggy. Consider keeping your pet indoors or be cautious.";
+} else if (weathercode >= 61 && weathercode <= 82) {
+  return "Rain showers expected. Better to keep your pet indoors or plan for a short outing.";
+} else if (weathercode >= 95) {
+  return "Severe weather alert! Best to keep your pet safe indoors until conditions improve.";
+} else {
+  return "Weather seems moderate. Enjoy a calm walk with your pet!";
+}
 }
 
 function getWeatherEmoji(code) {
-  if (code === 0) return "☀️";
-  if (code >= 1 && code <= 3) return "🌤️";
-  if (code >= 45 && code <= 48) return "🌫️";
-  if (code >= 51 && code <= 67) return "🌧️";
-  if (code >= 71 && code <= 82) return "❄️";
-  if (code >= 95) return "⛈️";
-  return "🌦️";
+if (code === 0) return "☀️";
+if (code >= 1 && code <= 3) return "🌤️";
+if (code >= 45 && code <= 48) return "🌫️";
+if (code >= 51 && code <= 67) return "🌧️";
+if (code >= 71 && code <= 82) return "❄️";
+if (code >= 95) return "⛈️";
+return "🌦️";
 }
 
 async function checkWeather() {
-  if (weatherVisible) {
-    weatherInfo.innerHTML = "";
-    weatherBtn.textContent = "Check Weather";
-    weatherVisible = false;
-    return;
+if (weatherVisible) {
+  weatherInfo.innerHTML = "";
+  weatherBtn.textContent = "Check Weather";
+  weatherVisible = false;
+  return;
+}
+
+try {
+  weatherInfo.innerHTML = "Loading weather data...";
+  const response = await fetch(weatherUrl);
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status}`);
   }
 
-  try {
-    weatherInfo.innerHTML = "Loading weather data...";
-    const response = await fetch(weatherUrl);
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
+  const data = await response.json();
+  const currentWeather = data.current_weather;
+  const temperature = currentWeather.temperature;
+  const weathercode = currentWeather.weathercode;
+  const suggestion = getWeatherSuggestion(weathercode);
+  const emoji = getWeatherEmoji(weathercode);
 
-    const data = await response.json();
-    const currentWeather = data.current_weather;
-    const temperature = currentWeather.temperature;
-    const weathercode = currentWeather.weathercode;
-    const suggestion = getWeatherSuggestion(weathercode);
-    const emoji = getWeatherEmoji(weathercode);
+  weatherInfo.innerHTML = `
+    <div class="weather-card">
+      <h3>${emoji} Current Weather in Dublin</h3>
+      <p><strong>Temperature:</strong> ${temperature}°C</p>
+      <p>${suggestion}</p>
+    </div>
+  `;
 
-    weatherInfo.innerHTML = `
-      <div class="weather-card">
-        <h3>${emoji} Current Weather in Dublin</h3>
-        <p><strong>Temperature:</strong> ${temperature}°C</p>
-        <p>${suggestion}</p>
-      </div>
-    `;
+  weatherBtn.textContent = "Hide Weather";
+  weatherVisible = true;
 
-    weatherBtn.textContent = "Hide Weather";
-    weatherVisible = true;
-
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
-    weatherInfo.innerHTML = "<p style='color:red;'>Unable to retrieve weather data.</p>";
-  }
+} catch (error) {
+  console.error("Error fetching weather data:", error);
+  weatherInfo.innerHTML = "<p style='color:red;'>Unable to retrieve weather data.</p>";
+}
 }
 
 weatherBtn.addEventListener('click', checkWeather);
 
 
 
-  // Sandra's Fetch Pet Fashion (Real API)
-  document.getElementById('fetchDataButton').addEventListener('click', function() {
-            fetchProducts();
-        });
-		// Fetch products from the real API
-        function fetchProducts() {
-            productsContainer.innerHTML = '<p>Loading...</p>'; // Show loading message
-            fetch('http://54.88.94.5:8000/api/fashions/')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length === 0) {
-                        productsContainer.innerHTML = '<p>No products available.</p>';
-                        return;
-                    }
- 
-                    productsContainer.innerHTML = ''; // Clear previous content
-                    data.forEach(item => {
-                        const productDiv = document.createElement('div');
-                        productDiv.classList.add('product');
-                        productDiv.innerHTML = `
+// Sandra's Fetch Pet Fashion (Real API)
+document.getElementById('fetchDataButton').addEventListener('click', function() {
+          fetchProducts();
+      });
+  // Fetch products from the real API
+      function fetchProducts() {
+          productsContainer.innerHTML = '<p>Loading...</p>'; // Show loading message
+          fetch('http://54.88.94.5:8000/api/fashions/')
+              .then(response => response.json())
+              .then(data => {
+                  if (data.length === 0) {
+                      productsContainer.innerHTML = '<p>No products available.</p>';
+                      return;
+                  }
+
+                  productsContainer.innerHTML = ''; // Clear previous content
+                  data.forEach(item => {
+                      const productDiv = document.createElement('div');
+                      productDiv.classList.add('product');
+                      productDiv.innerHTML = `
 <img src="${item.image_url}" alt="${item.name}">
 <p>${item.name}</p>
 <p>${item.description}</p>
@@ -439,30 +392,30 @@ weatherBtn.addEventListener('click', checkWeather);
 <p><strong>Price:</strong> $${item.price}</p>
 <button class="editButton" data-id="${item.id}">Edit</button>
 <button class="deleteButton" data-id="${item.id}">Delete</button>
-                        `;
-                        productsContainer.appendChild(productDiv);
-                    });
- 
-                    // Add event listeners for Edit and Delete buttons
-                    document.querySelectorAll('.editButton').forEach(button => {
-                        button.addEventListener('click', function(event) {
-                            const productId = event.target.getAttribute('data-id');
-                            editProduct(productId);
-                        });
-                    });
- 
-                    document.querySelectorAll('.deleteButton').forEach(button => {
-                        button.addEventListener('click', function(event) {
-                            const productId = event.target.getAttribute('data-id');
-                            deleteProduct(productId);
-                        });
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    productsContainer.innerHTML = '<p>There was an error loading the products. Please try again later.</p>';
-                });
-        }
-  </script>
+                      `;
+                      productsContainer.appendChild(productDiv);
+                  });
+
+                  // Add event listeners for Edit and Delete buttons
+                  document.querySelectorAll('.editButton').forEach(button => {
+                      button.addEventListener('click', function(event) {
+                          const productId = event.target.getAttribute('data-id');
+                          editProduct(productId);
+                      });
+                  });
+
+                  document.querySelectorAll('.deleteButton').forEach(button => {
+                      button.addEventListener('click', function(event) {
+                          const productId = event.target.getAttribute('data-id');
+                          deleteProduct(productId);
+                      });
+                  });
+              })
+              .catch(error => {
+                  console.error('Error fetching data:', error);
+                  productsContainer.innerHTML = '<p>There was an error loading the products. Please try again later.</p>';
+              });
+      }
+</script>
 </body>
 </html>
