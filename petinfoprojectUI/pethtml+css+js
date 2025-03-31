@@ -131,15 +131,35 @@
       border-radius: 4px;
     }
     /* Weather Section Styles */
-    #weather-info {
-      margin-top: 20px;
-      font-size: 18px;
-      text-align: center;
-      background-color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+    .weather-card {
+  margin: 20px auto;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #2c3e50;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.weather-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.weather-card p {
+  font-size: 1.05rem;
+  margin: 5px 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+  
     /*mypetapi*/
     .pet-card {
   background-color: #fff;
@@ -200,14 +220,14 @@
   
 
     <!-- Weather Section BELOW the facts -->
-    <section style="margin-top:40px;">
-      <h2 style="text-align:center;">Weather</h2>
-      <div style="text-align:center;">
-        <button id="weather-btn" class="primary-btn">Check Weather</button>
-      </div>
-      <div id="weather-info"></div>
-    </section>
-    <section> 
+   <!-- Weather Section -->
+<section style="margin-top:40px;">
+  <h2 style="text-align:center;">Weather</h2>
+  <div style="text-align:center;">
+    <button id="weather-btn" class="primary-btn">Check Weather</button>
+  </div>
+  <div id="weather-info"></div>
+</section>
 
     <!-- Pet Fashion Section -->
 <section style="margin-top: 40px;">
@@ -218,6 +238,8 @@
   <div id="products-container" class="fashion-gallery" style="margin-top: 20px;"></div>
 </section>
   </main>
+
+
   
   <!-- JavaScript -->
   <script>
@@ -312,58 +334,19 @@ document.getElementById('loadPetInfoBtn').addEventListener('click', function () 
 });
 
 
-    // Interesting Facts Section
-    const petFacts = [
-      "Dogs have a sense of time and can miss you when you’re gone.",
-      "Cats can jump up to six times their length.",
-      "Guinea pigs often 'popcorn' when happy, hopping straight up in the air.",
-      "A group of kittens is called a 'kindle'.",
-      "Rabbits can see nearly 360° around them.",
-      "Goldfish can recognize their owner's face among different people.",
-      "Dogs sweat through their paw pads, not their tongue.",
-      "Parrots can live for over 80 years in captivity.",
-      "Some cats sleep up to 16 hours a day!",
-      "Horses can sleep both lying down and standing up."
-    ];
 
-    function loadFacts() {
-      const factCardsContainer = document.getElementById('fact-cards');
-      factCardsContainer.innerHTML = "";
-      petFacts.forEach(fact => {
-        const card = document.createElement('div');
-        card.classList.add('fact-card');
-        card.innerHTML = `<p>${fact}</p>`;
-        factCardsContainer.appendChild(card);
-      });
-    }
-
-    document.getElementById('load-more-facts').addEventListener('click', loadFacts);
-
-    // Weather API Integration using Open-Meteo (Dublin coords)
-    const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=53.3498&longitude=-6.2603&current_weather=true";
-const weatherBtn = document.getElementById('weather-btn');
-const weatherInfo = document.getElementById('weather-info');
-
-let weatherVisible = false;  // Flag to toggle visibility
-
-function getWeatherSuggestion(weathercode) {
-  if (weathercode === 0) {
-    return "Clear sky! Perfect day for a walk with your pet.";
-  } else if (weathercode >= 1 && weathercode <= 3) {
-    return "Mostly clear. A nice day to take your pet out, but maybe bring a light jacket.";
-  } else if (weathercode >= 45 && weathercode <= 67) {
-    return "It might be a bit damp or foggy. Consider keeping your pet indoors or be cautious.";
-  } else if (weathercode >= 61 && weathercode <= 82) {
-    return "Rain showers expected. Better to keep your pet indoors or plan for a short outing.";
-  } else if (weathercode >= 95) {
-    return "Severe weather alert! Best to keep your pet safe indoors until conditions improve.";
-  } else {
-    return "Weather seems moderate. Enjoy a calm walk with your pet!";
-  }
+    // check weather function()
+    function getWeatherEmoji(code) {
+  if (code === 0) return "☀️";
+  if (code >= 1 && code <= 3) return "🌤️";
+  if (code >= 45 && code <= 48) return "🌫️";
+  if (code >= 51 && code <= 67) return "🌧️";
+  if (code >= 71 && code <= 82) return "❄️";
+  if (code >= 95) return "⛈️";
+  return "🌦️";
 }
 
 async function checkWeather() {
-  // If already visible, hide it
   if (weatherVisible) {
     weatherInfo.innerHTML = "";
     weatherBtn.textContent = "Check Weather";
@@ -383,10 +366,11 @@ async function checkWeather() {
     const temperature = currentWeather.temperature;
     const weathercode = currentWeather.weathercode;
     const suggestion = getWeatherSuggestion(weathercode);
+    const emoji = getWeatherEmoji(weathercode);
 
     weatherInfo.innerHTML = `
-      <h3>Current Weather in Dublin</h3>
-      <p>Temperature: ${temperature}°C</p>
+      <h3>${emoji} Current Weather in Dublin</h3>
+      <p><strong>Temperature:</strong> ${temperature}°C</p>
       <p>${suggestion}</p>
     `;
 
@@ -398,8 +382,6 @@ async function checkWeather() {
     weatherInfo.innerHTML = "<p style='color:red;'>Unable to retrieve weather data.</p>";
   }
 }
-
-weatherBtn.addEventListener('click', checkWeather);
 
 
   // Sandra's Fetch Pet Fashion (Real API)
