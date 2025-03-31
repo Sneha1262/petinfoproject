@@ -147,7 +147,7 @@
   <!-- Navigation Bar -->
   <header class="navbar">
     <div class="nav-left">
-      <h1 class="logo">PetInfoBlog</h1>
+      <h1 class="logo">Pet Information Blog</h1>
       <!-- Hamburger Icon (visible on mobile) -->
       <div class="hamburger" id="hamburger">&#9776;</div>
     </div>
