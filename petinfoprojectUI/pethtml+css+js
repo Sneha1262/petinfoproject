@@ -150,15 +150,6 @@
       <!-- Hamburger Icon (visible on mobile) -->
       <div class="hamburger" id="hamburger">&#9776;</div>
     </div>
-    <nav id="nav-menu" class="nav-menu">
-      <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <!-- Replace the 'pets.html' link with your Django API endpoint -->
-        <li><a href="http://35.173.214.218:8000/api/pets/" target="_blank">Pets</a></li>
-        <li><a href="#">Events</a></li>
-        <li><a href="#">Clothes</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
     </nav>
   </header>
   
