@@ -228,6 +228,90 @@
       navMenu.classList.toggle('active');
     });
 
+    //myapicards
+    let petDataLoaded = false;
+let petCardsVisible = false;
+
+document.getElementById('loadPetInfoBtn').addEventListener('click', function () {
+  const container = document.getElementById('petCardsContainer');
+  const button = document.getElementById('loadPetInfoBtn');
+
+  // If already visible, hide them
+  if (petCardsVisible) {
+    container.innerHTML = "";
+    button.textContent = "Show Pet Info";
+    petCardsVisible = false;
+    return;
+  }
+
+  // If not loaded before, fetch from API
+  if (!petDataLoaded) {
+    fetch('http://35.173.214.218:8000/api/pets/')
+      .then(response => response.json())
+      .then(data => {
+        if (data.length === 0) {
+          container.innerHTML = "<p>No pet data available.</p>";
+          return;
+        }
+
+        data.forEach(pet => {
+          const card = document.createElement('div');
+          card.classList.add('pet-card');
+
+          const createdDate = new Date(pet.created_at).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          });
+
+          card.innerHTML = `
+            <h3>${pet.name} (${pet.pet_type})</h3>
+            <div class="date">${createdDate}</div>
+            <p><strong>Breed:</strong> ${pet.breed || 'Not specified'}</p>
+            <p><strong>Age:</strong> ${pet.age} years</p>
+            <p>${pet.description}</p>
+            <button class="read-more">Read More</button>
+          `;
+          container.appendChild(card);
+        });
+
+        petDataLoaded = true;
+        petCardsVisible = true;
+        button.textContent = "Hide Pet Info";
+      })
+      .catch(error => {
+        console.error("Error fetching pets:", error);
+        container.innerHTML = "<p>Error loading pet info.</p>";
+      });
+  } else {
+    // If already loaded, just show it again
+    fetch('http://35.173.214.218:8000/api/pets/')
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(pet => {
+          const card = document.createElement('div');
+          card.classList.add('pet-card');
+
+          const createdDate = new Date(pet.created_at).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          });
+
+          card.innerHTML = `
+            <h3>${pet.name} (${pet.pet_type})</h3>
+            <div class="date">${createdDate}</div>
+            <p><strong>Breed:</strong> ${pet.breed || 'Not specified'}</p>
+            <p><strong>Age:</strong> ${pet.age} years</p>
+            <p>${pet.description}</p>
+            <button class="read-more">Read More</button>
+          `;
+          container.appendChild(card);
+        });
+
+        petCardsVisible = true;
+        button.textContent = "Hide Pet Info";
+      });
+  }
+});
+
+
     // Interesting Facts Section
     const petFacts = [
       "Dogs have a sense of time and can miss you when you’re gone.",
@@ -257,51 +341,65 @@
 
     // Weather API Integration using Open-Meteo (Dublin coords)
     const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=53.3498&longitude=-6.2603&current_weather=true";
-    const weatherBtn = document.getElementById('weather-btn');
-    const weatherInfo = document.getElementById('weather-info');
+const weatherBtn = document.getElementById('weather-btn');
+const weatherInfo = document.getElementById('weather-info');
 
-    function getWeatherSuggestion(weathercode) {
-      if (weathercode === 0) {
-        return "Clear sky! Perfect day for a walk with your pet.";
-      } else if (weathercode >= 1 && weathercode <= 3) {
-        return "Mostly clear. A nice day to take your pet out, but maybe bring a light jacket.";
-      } else if (weathercode >= 45 && weathercode <= 67) {
-        return "It might be a bit damp or foggy. Consider keeping your pet indoors or be cautious.";
-      } else if (weathercode >= 61 && weathercode <= 82) {
-        return "Rain showers expected. Better to keep your pet indoors or plan for a short outing.";
-      } else if (weathercode >= 95) {
-        return "Severe weather alert! Best to keep your pet safe indoors until conditions improve.";
-      } else {
-        return "Weather seems moderate. Enjoy a calm walk with your pet!";
-      }
+let weatherVisible = false;  // Flag to toggle visibility
+
+function getWeatherSuggestion(weathercode) {
+  if (weathercode === 0) {
+    return "Clear sky! Perfect day for a walk with your pet.";
+  } else if (weathercode >= 1 && weathercode <= 3) {
+    return "Mostly clear. A nice day to take your pet out, but maybe bring a light jacket.";
+  } else if (weathercode >= 45 && weathercode <= 67) {
+    return "It might be a bit damp or foggy. Consider keeping your pet indoors or be cautious.";
+  } else if (weathercode >= 61 && weathercode <= 82) {
+    return "Rain showers expected. Better to keep your pet indoors or plan for a short outing.";
+  } else if (weathercode >= 95) {
+    return "Severe weather alert! Best to keep your pet safe indoors until conditions improve.";
+  } else {
+    return "Weather seems moderate. Enjoy a calm walk with your pet!";
+  }
+}
+
+async function checkWeather() {
+  // If already visible, hide it
+  if (weatherVisible) {
+    weatherInfo.innerHTML = "";
+    weatherBtn.textContent = "Check Weather";
+    weatherVisible = false;
+    return;
+  }
+
+  try {
+    weatherInfo.innerHTML = "Loading weather data...";
+    const response = await fetch(weatherUrl);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
     }
 
-    async function checkWeather() {
-      try {
-        weatherInfo.innerHTML = "Loading weather data...";
-        const response = await fetch(weatherUrl);
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        const currentWeather = data.current_weather;
-        const temperature = currentWeather.temperature;
-        const weathercode = currentWeather.weathercode;
-        const suggestion = getWeatherSuggestion(weathercode);
+    const data = await response.json();
+    const currentWeather = data.current_weather;
+    const temperature = currentWeather.temperature;
+    const weathercode = currentWeather.weathercode;
+    const suggestion = getWeatherSuggestion(weathercode);
 
-        weatherInfo.innerHTML = `
-          <h3>Current Weather in Dublin</h3>
-          <p>Temperature: ${temperature}°C</p>
-          <p>${suggestion}</p>
-        `;
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-        weatherInfo.innerHTML = "<p style='color:red;'>Unable to retrieve weather data.</p>";
-      }
-    }
+    weatherInfo.innerHTML = `
+      <h3>Current Weather in Dublin</h3>
+      <p>Temperature: ${temperature}°C</p>
+      <p>${suggestion}</p>
+    `;
 
-    weatherBtn.addEventListener('click', checkWeather);
-    const productsContainer = document.getElementById('products-container');
+    weatherBtn.textContent = "Hide Weather";
+    weatherVisible = true;
+
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    weatherInfo.innerHTML = "<p style='color:red;'>Unable to retrieve weather data.</p>";
+  }
+}
+
+weatherBtn.addEventListener('click', checkWeather);
 
 
   // Sandra's Fetch Pet Fashion (Real API)
