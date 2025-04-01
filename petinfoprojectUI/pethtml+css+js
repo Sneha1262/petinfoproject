@@ -126,15 +126,6 @@
       margin-bottom: 10px;
     }
 
-    .read-more {
-      margin-top: 10px;
-      background-color: #e74c3c;
-      color: white;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
 
     .quote-section {
       margin: 60px auto;
@@ -168,6 +159,15 @@
       <div class="hamburger" id="hamburger">&#9776;</div>
     </div>
   </header>
+  <!-- Pet Quotes Section -->
+  <section class="quote-section">
+    <blockquote>
+      "Pets are humanizing. They remind us we have an obligation and responsibility to preserve and nurture and care for all life."
+    </blockquote>
+    <cite>- James Cromwell</cite>
+  </section>
+</body>
+</html>
 
   <!-- Feature Buttons Section -->
   <section class="feature-section">
@@ -184,15 +184,6 @@
   <div id="weather-info"></div>
   <div id="products-container" class="card-container"></div>
 
-  <!-- Pet Quotes Section -->
-  <section class="quote-section">
-    <blockquote>
-      "Pets are humanizing. They remind us we have an obligation and responsibility to preserve and nurture and care for all life."
-    </blockquote>
-    <cite>- James Cromwell</cite>
-  </section>
-</body>
-</html>
 
 <!-- JavaScript -->
 <script>
@@ -243,7 +234,7 @@ if (!petDataLoaded) {
           <p><strong>Breed:</strong> ${pet.breed || 'Not specified'}</p>
           <p><strong>Age:</strong> ${pet.age} years</p>
           <p>${pet.description}</p>
-          <button class="read-more">Read More</button>
+      
         `;
         container.appendChild(card);
       });
