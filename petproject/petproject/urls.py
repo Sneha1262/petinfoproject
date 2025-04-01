@@ -21,7 +21,10 @@ from django.shortcuts import render
 def home_view(request):
     return render(request, 'home.html')
 
+
 urlpatterns = [
     path('', home_view),  # <-- root URL now handled!
     path('api/', include('pets.urls')),
+    
+   
 ]
