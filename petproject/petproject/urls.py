@@ -17,11 +17,11 @@ Including another URLconf
 from django.urls import path, include
 from django.shortcuts import render
 
+# This function will render the home.html template
 def home_view(request):
     return render(request, 'home.html')
 
 urlpatterns = [
+    path('', home_view),  # <-- root URL now handled!
     path('api/', include('pets.urls')),
-    path('', home_view),
-
 ]
