@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'petdatabase',
         'USER': 'admin',
         'PASSWORD': 'SnehaSA1262*',
-        'HOST': 'myapidbinstance.c816mmyasvnu.us-east-1.rds.amazonaws.com',
+        'HOST': 'myapidbinstance.c816mmyas.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
