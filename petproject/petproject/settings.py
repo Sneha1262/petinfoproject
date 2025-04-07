@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'petDB',
         'USER': 'admin',
-        'PASSWORD': 'SnehaSA1262*',
+        'PASSWORD': 'SnehaSA12*',
         'HOST': 'mydbinstance.c816mmyasvnu.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
     }
