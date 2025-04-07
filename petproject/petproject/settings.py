@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'petproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myapidbinstance',
+        'NAME': 'petDB',
         'USER': 'admin',
         'PASSWORD': 'SnehaSA1262*',
-        'HOST': 'myapidbinstance.c816mmyasvnu.us-east-1.rds.amazonaws.com',
+        'HOST': 'mydbinstance.c816mmyasvnu.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
